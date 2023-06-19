@@ -60,12 +60,6 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
   
     res.json({ received: true });
   });
-  const PerformanceReviewSchema = new mongoose.Schema({
-    // ...
-    role: { type: String, enum: ['owner', 'provider'] },
-    ratings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
-    // ...
-  });
 
   const JobHistoryRatingSchema = new mongoose.Schema({
     // ...
