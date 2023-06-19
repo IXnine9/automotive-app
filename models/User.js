@@ -1,9 +1,5 @@
-const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
-const router = express.Router();
 
 const UserSchema = new mongoose.Schema({
   // ...
@@ -27,8 +23,6 @@ module.exports = router;
 const PerformanceReviewSchema = new mongoose.Schema({
   // ...
 });
-
-const PerformanceReview = mongoose.model('PerformanceReview', PerformanceReviewSchema);
 
 const JobHistoryRatingSchema = new mongoose.Schema({
   // ...
