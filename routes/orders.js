@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const Order = require('../models/Order');
+import { Router } from 'express';
+const router = Router();
+import Order, { find, findById } from '../models/Order';
 
 router.post('/', async (req, res) => {
   try {
@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const orders = await Order.find({ 'car.owner': req.body.owner });
+    const orders = await find({ 'car.owner': req.body.owner });
     res.send(orders);
   } catch (err) {
     res.status(400).send(err);
@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
 
 router.put('/:id/bid', async (req, res) => {
   try {
-    const order = await Order.findById(req.params.id);
+    const order = await findById(req.params.id);
     if (!order) {
       return res.status(400).send('Order not found.');
     }
@@ -36,12 +36,12 @@ router.put('/:id/bid', async (req, res) => {
   }
 });
 
-module.exports = router;
-const Bid = require('../models/Bid');
+export default router;
+import Bid, { findById as _findById } from '../models/Bid';
 
 router.put('/:id/bid', async (req, res) => {
   try {
-    const order = await Order.findById(req.params.id);
+    const order = await findById(req.params.id);
     if (!order) {
       return res.status(400).send('Order not found.');
     }
@@ -60,12 +60,12 @@ router.put('/:id/bid', async (req, res) => {
 
 router.put('/:id/accept', async (req, res) => {
   try {
-    const order = await Order.findById(req.params.id);
+    const order = await findById(req.params.id);
     if (!order) {
       return res.status(400).send('Order not found.');
     }
 
-    const bid = await Bid.findById(req.body.bidId);
+    const bid = await _findById(req.body.bidId);
     if (!bid) {
       return res.status(400).send('Bid not found.');
     }
@@ -78,11 +78,11 @@ router.put('/:id/accept', async (req, res) => {
     res.status(400).send(err);
   }
 });
-const Bid = require('../models/Bid');
+import Bid from '../models/Bid';
 
 router.put('/:id/bid', async (req, res) => {
   try {
-    const order = await Order.findById(req.params.id);
+    const order = await findById(req.params.id);
     if (!order) {
       return res.status(400).send('Order not found.');
     }
@@ -101,12 +101,12 @@ router.put('/:id/bid', async (req, res) => {
 
 router.put('/:id/accept', async (req, res) => {
   try {
-    const order = await Order.findById(req.params.id);
+    const order = await findById(req.params.id);
     if (!order) {
       return res.status(400).send('Order not found.');
     }
 
-    const bid = await Bid.findById(req.body.bidId);
+    const bid = await _findById(req.body.bidId);
     if (!bid) {
       return res.status(400).send('Bid not found.');
     }
@@ -122,7 +122,7 @@ router.put('/:id/accept', async (req, res) => {
 
 router.put('/:id/start', async (req, res) => {
     try {
-      const order = await Order.findById(req.params.id);
+      const order = await findById(req.params.id);
       if (!order) {
         return res.status(400).send('Order not found.');
       }
@@ -139,7 +139,7 @@ router.put('/:id/start', async (req, res) => {
   
   router.put('/:id/complete', async (req, res) => {
     try {
-      const order = await Order.findById(req.params.id);
+      const order = await findById(req.params.id);
       if (!order) {
         return res.status(400).send('Order not found.');
       }
@@ -155,7 +155,7 @@ router.put('/:id/start', async (req, res) => {
   });
   router.put('/:id/pay', async (req, res) => {
     try {
-      const order = await Order.findById(req.params.id);
+      const order = await findById(req.params.id);
       if (!order) {
         return res.status(400).send('Order not found.');
       }
@@ -171,7 +171,7 @@ router.put('/:id/start', async (req, res) => {
   });
   router.put('/:id/pay', async (req, res) => {
     try {
-      const order = await Order.findById(req.params.id);
+      const order = await findById(req.params.id);
       if (!order) {
         return res.status(400).send('Order not found.');
       }
@@ -180,7 +180,7 @@ router.put('/:id/start', async (req, res) => {
       order.status = 'closed';
       await order.save();
   
-      const user = await User.findById(req.body.owner);
+      const user = await user.findById(req.body.owner);
       if (!user) {
         return res.status(400).send('User not found.');
       }
@@ -195,7 +195,7 @@ router.put('/:id/start', async (req, res) => {
   });
   router.put('/:id/bid', async (req, res) => {
     try {
-      const order = await Order.findById(req.params.id);
+      const order = await findById(req.params.id);
       if (!order) {
         return res.status(400).send('Order not found.');
       }
@@ -215,7 +215,7 @@ router.put('/:id/start', async (req, res) => {
   
   router.put('/:id/accept', async (req, res) => {
     try {
-      const order = await Order.findById(req.params.id);
+      const order = await findById(req.params.id);
       if (!order) {
         return res.status(400).send('Order not found.');
       }

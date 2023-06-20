@@ -1,8 +1,10 @@
-window.onload = function() {
-    axios.get('http://localhost:3000/api/workshops/me')
-    .then(function(response) {
-        const workshop = response.data;
-        const workshopHTML = `
+newFunction();
+function newFunction() {
+    window.onload = function () {
+        axios.get('http://localhost:3000/api/workshops/me')
+            .then(function (response) {
+                const workshop = response.data;
+                const workshopHTML = `
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">${workshop.name}</h5>
@@ -10,9 +12,11 @@ window.onload = function() {
                 </div>
             </div>
         `;
-        document.getElementById('workshop').innerHTML = workshopHTML;
-    })
-    .catch(function(error) {
-        console.log(error);
-    });
-};
+                document.getElementById('workshop').innerHTML = workshopHTML;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+}
+

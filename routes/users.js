@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const User = require('../models/User');
+import { Router, raw } from 'express';
+const router = Router();
+import User, { findOne, findById } from '../models/User';
 
 router.post('/register', async (req, res) => {
   try {
@@ -12,12 +12,11 @@ router.post('/register', async (req, res) => {
   }
 });
 
-module.exports = router;
-const jwt = require('jsonwebtoken');
+const jwt = newFunction();
 
 router.post('/login', async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await findOne({ email: req.body.email });
     if (!user) {
       return res.status(400).send('Invalid email or password.');
     }
@@ -37,7 +36,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 router.post('/subscribe', async (req, res) => {
   try {
-    const user = await User.findById(req.body.userId);
+    const user = await findById(req.body.userId);
     if (!user) {
       return res.status(400).send('User not found.');
     }
@@ -62,7 +61,7 @@ router.post('/subscribe', async (req, res) => {
     res.status(400).send(err);
   }
 });
-router.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
+router.post('/webhook', raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
     let event;
   
@@ -74,11 +73,17 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
   
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
-      const user = await User.findOne({ stripeCustomerId: session.customer });
+      const user = await findOne({ stripeCustomerId: session.customer });
       user.subscriptionStatus = true;
       await user.save();
     }
   
     res.json({ received: true });
   });
+
+function newFunction() {
+  module.exports = router;
+  const jwt = require('jsonwebtoken');
+  return jwt;
+}
   

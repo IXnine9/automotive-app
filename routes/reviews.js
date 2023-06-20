@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const Review = require('../models/Review');
+import { Router } from 'express';
+const router = Router();
+import Review, { findById } from '../models/Review';
 
 router.post('/', async (req, res) => {
   try {
@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const review = await Review.findById(req.params.id);
+    const review = await findById(req.params.id);
     if (!review) {
       return res.status(400).send('Review not found.');
     }
@@ -24,15 +24,15 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-module.exports = router;
-const User = require('../models/User');
+export default router;
+import { findById as _findById } from '../models/User';
 
 router.post('/', async (req, res) => {
   try {
     const review = new Review(req.body);
     await review.save();
 
-    const user = await User.findById(req.body.provider);
+    const user = await _findById(req.body.provider);
     if (!user) {
       return res.status(400).send('User not found.');
     }

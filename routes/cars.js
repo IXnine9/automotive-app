@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const Car = require('../models/Car');
+import { Router } from 'express';
+const router = Router();
+import Car, { find } from '../models/Car';
 
 router.post('/', async (req, res) => {
   try {
@@ -14,11 +14,11 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const cars = await Car.find({ owner: req.body.owner });
+    const cars = await find({ owner: req.body.owner });
     res.send(cars);
   } catch (err) {
     res.status(400).send(err);
   }
 });
 
-module.exports = router;
+export default router;

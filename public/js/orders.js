@@ -1,10 +1,12 @@
-window.onload = function() {
-    axios.get('http://localhost:3000/api/orders')
-    .then(function(response) {
-        const orders = response.data;
-        let ordersHTML = '';
-        for (let order of orders) {
-            ordersHTML += `
+newFunction();
+function newFunction() {
+    window.onload = function () {
+        axios.get('http://localhost:3000/api/orders')
+            .then(function (response) {
+                const orders = response.data;
+                let ordersHTML = '';
+                for (let order of orders) {
+                    ordersHTML += `
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">${order.description}</h5>
@@ -13,10 +15,12 @@ window.onload = function() {
                     </div>
                 </div>
             `;
-        }
-        document.getElementById('orders').innerHTML = ordersHTML;
-    })
-    .catch(function(error) {
-        console.log(error);
-    });
-};
+                }
+                document.getElementById('orders').innerHTML = ordersHTML;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+}
+

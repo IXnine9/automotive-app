@@ -1,10 +1,12 @@
-window.onload = function() {
-    axios.get('http://localhost:3000/api/workshops')
-    .then(function(response) {
-        const workshops = response.data;
-        let workshopsHTML = '';
-        for (let workshop of workshops) {
-            workshopsHTML += `
+newFunction();
+function newFunction() {
+    window.onload = function () {
+        axios.get('http://localhost:3000/api/workshops')
+            .then(function (response) {
+                const workshops = response.data;
+                let workshopsHTML = '';
+                for (let workshop of workshops) {
+                    workshopsHTML += `
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">${workshop.name}</h5>
@@ -13,10 +15,12 @@ window.onload = function() {
                     </div>
                 </div>
             `;
-        }
-        document.getElementById('workshops').innerHTML = workshopsHTML;
-    })
-    .catch(function(error) {
-        console.log(error);
-    });
-};
+                }
+                document.getElementById('workshops').innerHTML = workshopsHTML;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+}
+

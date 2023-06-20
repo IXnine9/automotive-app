@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const Service = require('../models/Service');
+import { Router } from 'express';
+const router = Router();
+import Service, { find } from '../models/Service';
 
 router.post('/', async (req, res) => {
   try {
@@ -14,11 +14,11 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const services = await Service.find({ provider: req.body.provider });
+    const services = await find({ provider: req.body.provider });
     res.send(services);
   } catch (err) {
     res.status(400).send(err);
   }
 });
 
-module.exports = router;
+export default router;

@@ -1,23 +1,23 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const OrderSchema = new mongoose.Schema({
-    car: { type: mongoose.Schema.Types.ObjectId, ref: 'Car', required: true },
-    service: { type: mongoose.Schema.Types.ObjectId, ref: 'Service', required: true },
+const OrderSchema = new Schema({
+    car: { type: Schema.Types.ObjectId, ref: 'Car', required: true },
+    service: { type: Schema.Types.ObjectId, ref: 'Service', required: true },
     status: { type: String, default: 'open' },
-    bids: [{ provider: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, price: Number }],
-    acceptedBid: { type: mongoose.Schema.Types.ObjectId, ref: 'Bid' },
+    bids: [{ provider: { type: Schema.Types.ObjectId, ref: 'User' }, price: Number }],
+    acceptedBid: { type: Schema.Types.ObjectId, ref: 'Bid' },
   });
   
-  const Order = mongoose.model('Order', OrderSchema);
+  const Order = model('Order', OrderSchema);
   
-  module.exports = Order;
+  export default Order;
   
-const BidSchema = new mongoose.Schema({
+const BidSchema = new Schema({
     // ...
-    acceptedBid: { type: mongoose.Schema.Types.ObjectId, ref: 'Bid' },
+    acceptedBid: { type: Schema.Types.ObjectId, ref: 'Bid' },
   });
   
-const ProjectManagementSchema = new mongoose.Schema({
+const ProjectManagementSchema = new Schema({
     // ...
     startDate: { type: Date },
     endDate: { type: Date },
@@ -25,16 +25,16 @@ const ProjectManagementSchema = new mongoose.Schema({
     // ...
   });
 
-const OrderPaymentSchema = new mongoose.Schema({
+const OrderPaymentSchema = new Schema({
     // ...
     paymentStatus: { type: String, default: 'unpaid', enum: ['unpaid', 'paid'] },
     // ...
   });
 
-const AuctionSchema = new mongoose.Schema({
+const AuctionSchema = new Schema({
     // ...
     auctionEnds: { type: Date },
-    bids: [{ provider: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, price: Number }],
+    bids: [{ provider: { type: Schema.Types.ObjectId, ref: 'User' }, price: Number }],
     // ...
   });
   

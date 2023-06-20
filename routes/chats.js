@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const Chat = require('../models/Chat');
+import { Router } from 'express';
+const router = Router();
+import Chat, { findById } from '../models/Chat';
 
 router.post('/', async (req, res) => {
   try {
@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const chat = await Chat.findById(req.params.id);
+    const chat = await findById(req.params.id);
     if (!chat) {
       return res.status(400).send('Chat not found.');
     }
@@ -26,7 +26,7 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id/message', async (req, res) => {
   try {
-    const chat = await Chat.findById(req.params.id);
+    const chat = await findById(req.params.id);
     if (!chat) {
       return res.status(400).send('Chat not found.');
     }
@@ -40,4 +40,4 @@ router.put('/:id/message', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

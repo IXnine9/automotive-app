@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const BidSchema = new mongoose.Schema({
-  provider: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  order: { type: mongoose.Schema.Types.ObjectId, ref: 'Order', required: true },
+const BidSchema = new Schema({
+  provider: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  order: { type: Schema.Types.ObjectId, ref: 'Order', required: true },
   price: { type: Number, required: true },
 });
 
-const Bid = mongoose.model('Bid', BidSchema);
+const Bid = model('Bid', BidSchema);
 
-module.exports = Bid;
+export default Bid;

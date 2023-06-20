@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const ServiceSchema = new mongoose.Schema({
-  provider: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+const ServiceSchema = new Schema({
+  provider: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   name: { type: String, required: true },
   description: { type: String, required: true },
   price: { type: Number, required: true },
 });
 
-const Service = mongoose.model('Service', ServiceSchema);
+const Service = model('Service', ServiceSchema);
 
-module.exports = Service;
+export default Service;
